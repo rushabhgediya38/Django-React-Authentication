@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure()
+
 const Signup = ({ signup, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -21,14 +22,18 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    
-    if (password == re_password){
-		  signup.success(email, name, password, re_password);
-      toast('signup success.')
+
+    if (password === re_password){
+		  signup(email, name, password, re_password);
     } else {
     	toast.error('password not match.')
     }
-    
+    setFormData({
+      email: '',
+      name: '',
+      password: '',
+      re_password: '',
+    })
   }
 
   if (isAuthenticated) {
@@ -48,7 +53,6 @@ const Signup = ({ signup, isAuthenticated }) => {
             name='email'
             value={email}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -59,7 +63,6 @@ const Signup = ({ signup, isAuthenticated }) => {
             name='name'
             value={name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -70,7 +73,6 @@ const Signup = ({ signup, isAuthenticated }) => {
             name='password'
             value={password}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -81,7 +83,6 @@ const Signup = ({ signup, isAuthenticated }) => {
             name='re_password'
             value={re_password}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <button type='submit' className='btn btn-primary'>

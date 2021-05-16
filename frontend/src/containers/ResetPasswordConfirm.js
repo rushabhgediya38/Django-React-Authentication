@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password_confirm } from '../actions/auth';
 import { toast } from 'react-toastify'
@@ -7,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure()
 const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
-    const [requestSent, setRequestSent] = useState(false);
+    // const [requestSent, setRequestSent] = useState(false);
     const [formData, setFormData] = useState({
         new_password: '',
         re_new_password: ''
@@ -22,15 +21,13 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
 
         const uid = match.params.uid;
         const token = match.params.token;
-
         reset_password_confirm(uid, token, new_password, re_new_password);
-        setRequestSent(true);
-        toast.success('password reset sucessful.')
+        setFormData({
+            new_password: '',
+            re_new_password: ''
+        })
+        
     };
-
-    if (requestSent) {
-        return <Redirect to='/' />
-    }
 
     return (
         <div className='container mt-5'>

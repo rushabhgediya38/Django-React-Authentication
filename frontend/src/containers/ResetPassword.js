@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password } from '../actions/auth';
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
-toast.configure()
 const ResetPassword = ({ reset_password }) => {
-    const [requestSent, setRequestSent] = useState(false);
     const [formData, setFormData] = useState({
-        email: ''
+        email: '',
     });
 
     const { email } = formData;
@@ -18,16 +13,12 @@ const ResetPassword = ({ reset_password }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-
         reset_password(email);
-        setRequestSent(true);
-        toast.success('We will send you to mail to reset your password.')
+        setFormData({
+            email: '',
+        })
     };
-
-    if (requestSent) {
-        return <Redirect to='/' />
-    }
-
+    
     return (
         <div className='container mt-5'>
             <h1>Request Password Reset:</h1>

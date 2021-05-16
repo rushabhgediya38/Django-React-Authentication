@@ -11,7 +11,7 @@ const Login = ({ login, isAuthenticated }) => {
     email: '',
     password: '',
   })
-
+  
   const { email, password } = formData
   
   const onChange = (e) =>
@@ -20,13 +20,16 @@ const Login = ({ login, isAuthenticated }) => {
   const onSubmit = (e) => {
     e.preventDefault()
     login(email, password)
-    toast('login sucessful')
+    setFormData({
+      email: '',
+      password: '',
+    })
   }
-  
+
   if (isAuthenticated) {
     return <Redirect to='/' />
   }
-  
+
   return (
     <div className='container mt-5'>
       <h1>Sign In</h1>
